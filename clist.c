@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include <stdint.h>
 #include "clist.h"
 
@@ -28,7 +27,7 @@ int CList_Realloc_(CList *l, int n)
   if (n < p->count)
   {
     fprintf(stderr, "CList: ERROR! Can not realloc to '%i' size - count is '%i'\n", n, p->count);
-    assert(n >= p->count);
+    exit(EXIT_FAILURE);
     return 0;
   }
 
@@ -67,7 +66,7 @@ void *CList_Insert_(CList *l, void *o, int n)
   {
     fprintf(stderr, "CList: ERROR! Insert position outside range - %d; n - %d.\n", 
                         p->count, n);
-    assert(n >= 0 && n <= p->count);
+    exit(EXIT_FAILURE);
     return NULL;
   }
 
@@ -90,7 +89,7 @@ void *CList_Replace_(CList *l, void *o, int n)
   {
     fprintf(stderr, "CList: ERROR! Replace position outside range - %d; n - %d.\n", 
                         p->count, n);
-    assert(n >= 0 && n < p->count);
+    exit(EXIT_FAILURE);
     return NULL;
   }
 
@@ -107,7 +106,7 @@ void CList_Remove_(CList *l, int n)
   {
     fprintf(stderr, "CList: ERROR! Remove position outside range - %d; n - %d.\n",
                         p->count, n);
-    assert(n >= 0 && n < p->count);
+    exit(EXIT_FAILURE);
     return;
   }
 
@@ -127,7 +126,7 @@ void *CList_At_(CList *l, int n)
   {
     fprintf(stderr, "CList: ERROR! Get position outside range - %d; n - %d.\n", 
                       p->count, n);
-    assert(n >= 0 && n < p->count);
+    exit(EXIT_FAILURE);
     return NULL;
   }
 
@@ -147,7 +146,7 @@ void *CList_firstMatch_(CList *l, const void *o, size_t shift, size_t size, int 
   {
     fprintf(stderr, "CList: ERROR! Wrong ranges for firstMatch - "
                 "shift '%zu', size '%zu', item_size '%zu'\n", shift, size, p->item_size);
-    assert(shift + size <= p->item_size);
+    exit(EXIT_FAILURE);
     return NULL;    
   }
 
@@ -195,7 +194,7 @@ void *CList_lastMatch_(struct CList *l, const void *o, size_t shift, size_t size
   {
     fprintf(stderr, "CList: ERROR! Wrong ranges for lastMatch - "
                 "shift '%zu', size '%zu', item_size '%zu'\n", shift, size, p->item_size);
-     assert(shift + size <= p->item_size);
+     exit(EXIT_FAILURE);
     return NULL;
   }
 
@@ -244,7 +243,7 @@ int CList_swap_(CList *l, int a, int b)
   {
     fprintf(stderr, "CList: ERROR! Swap position outside range - %i, %i; count - %d.\n", 
                       a, b, p->count);
-    assert(a >= 0 && a < p->count && b >= 0 && b < p->count);
+    exit(EXIT_FAILURE);
     return 0;
   }
 
@@ -307,7 +306,7 @@ void CList_print_(CList *l, size_t shift, int n, const char *type)
   {
     fprintf(stderr, "CList: ERROR! Wrong shift value for list print - "
                 "shift '%zu', item_size '%zu'\n", shift, p->item_size);
-     assert(shift < p->item_size);
+     exit(EXIT_FAILURE);
     return;
   }
 
